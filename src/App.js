@@ -1,7 +1,9 @@
 import React from "react";
+import "./stylesheet/color-game.scss";
+import ColorGame from "./components/ColorGame";
 
 function App() {
-  return <div className="App"></div>;
+  return <ColorGame />;
 }
 
 export default App;
