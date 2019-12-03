@@ -58,3 +58,20 @@ body {
   padding-right: 6px;
   text-transform: capitalize;
 }
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.card {
+  width: 180px;
+  background-color: purple;
+  height: 180px;
+  margin: 10px;
+  border-radius: 15%;
+  transition: background-color 0.6s;
+}
