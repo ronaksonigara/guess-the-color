@@ -13,7 +13,6 @@ function ColorGame() {
 
   useEffect(() => {
     generateRandomColor();
-    //return () => generateRandomColor();
   }, [totalColor]);
 
   const bindCards = data => {
@@ -25,46 +24,50 @@ function ColorGame() {
   };
 
   const handleCardClick = data => {
-    console.log(data, rightAnswer, data === rightAnswer);
     if (!isStarted) {
       setStart(true);
     }
     if (data === rightAnswer) {
+      let arr = [];
+      for (let i = 0; i < totalColor; i++) {
+        arr.push(data);
+      }
+      setStatus(true);
+      setColors(arr);
     } else {
-      // const arr = colors;
-      // arr.indexOf(data) = "rgb(35, 35, 35)";
-      // setColors([
-      //   ...colors,
-      //   (colors[colors.indexOf(data)] = "rgb(35, 35, 35)")
-      // ]);
+      let newArr = [...colors];
+      newArr[colors.indexOf(data)] = "rgb(35, 35, 35)";
+      setColors(newArr);
     }
   };
 
   const handleResetClick = () => {
-    console.log("reset");
+    generateRandomColor();
+    setStart(false);
+    setStatus(false);
   };
   const handleModeClick = data => {
-    // console.log(data);
     if (data === "easy") {
       setTotalColor(3);
     } else {
       setTotalColor(6);
     }
-    // setTotalColor()
+    setStart(false);
+    setStatus(false);
   };
 
   const randomColor = () => {
-    var r = Math.floor(Math.random() * 256);
+    const r = Math.floor(Math.random() * 256);
 
-    var g = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
 
-    var b = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
     return "rgb(" + r + ", " + g + ", " + b + ")";
   };
 
   const generateRandomColor = () => {
-    var arr = [];
-    for (var i = 0; i < totalColor; i++) {
+    const arr = [];
+    for (let i = 0; i < totalColor; i++) {
       arr.push(randomColor());
     }
     setColors(arr);
@@ -75,10 +78,12 @@ function ColorGame() {
     var random = Math.floor(Math.random() * arr.length);
     setAnswer(arr[random]);
   };
-  console.log(colors);
   return (
     <>
-      <Header colorName={rightAnswer} />
+      <Header
+        backgroundColor={isWon ? rightAnswer : "rgb(70,130,180)"}
+        colorName={rightAnswer}
+      />
       <MenuBar
         handleReset={handleResetClick}
         handleModeClick={handleModeClick}
